@@ -1,0 +1,38 @@
+{% extends 'userapp.html' %}
+{% block headers %}
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.css">
+  
+{% endblock %}
+{% block content %}
+<h1 class="h3 mb-2 text-gray-800">Data Jadwal</h1>
+
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+    <div class="card-header"><a href="{% url 'siswa:rapot:cetak_rapot' id_kelas %}" class="btn btn-primary" target="_blank">Cetak Rapot</a></div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <tbody>
+                    {% for item in data %}
+                    <tr>
+                        <td>{{ item.nama_mata_pelajaran }}</td>
+                        <td>{{ item.label_predict }} ({{ item.nilai_predict }})</td>
+                        <td>{{ item.label_predict_svm }} <a href="{% url 'siswa:rapot:detail_nilai' item.id_jadwal id_kelas %}">(Detail)</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js"></script>
+<script>
+    $(function(){
+        $('table').DataTable();
+    })
+    
+</script>
+{% endblock %}

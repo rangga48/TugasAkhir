@@ -1,0 +1,26 @@
+{% load static %}
+<html>
+    {% include 'common/header.html' %}
+    {% block headers %}
+    {% endblock %}
+    <body id="page-top">
+        <div id="wrapper">
+            {% include 'common/sidebar.html' %}
+            <div id="content-wrapper" class="d-flex flex-column">
+                <div id="content">
+                    {% include 'common/navbar.html' %}
+                    <div class="container-fluid">
+                        {% block content %}
+                        {% endblock %}
+                    </div>
+                </div>
+                {% include 'common/footer.html' %}
+                {% block modal %}
+                {% endblock %}
+            </div>
+        </div>
+        {% include 'common/scripts.html' %}
+        {% block scripts %}
+        {% endblock %}
+    </body>
+</html>

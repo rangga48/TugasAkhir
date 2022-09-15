@@ -1,0 +1,96 @@
+{% extends 'userapp.html' %}
+{% load static %}
+{% block headers %}
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.css">
+  
+{% endblock %}
+{% block content %}
+<h1 class="h3 mb-2 text-gray-800">Data Pengerjaan</h1>
+
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Nama Siswa</th>
+                        <th>Konten</th>
+                        <th>Attachment</th>
+                        <th>Tanggal Dikirim</th>
+                        <th>Tanggal Diapprove</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in data %}
+                    <tr>
+                        <td>{{ item.nama_siswa }}</td> 
+                        <td>{{ item.konten }}</td>
+                        <td><a href="{% static 'upload/' %}{{item.attachment}}">File</a></td>
+                        <td>{{ item.created_date }}</td>
+                        <td>
+                            {% if item.is_approved == 0 %}
+                            Belum diapprove
+                            {% else %}
+                                {{ item.last_update }}
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if item.is_approved == 0 %}
+                            <a class="btn btn-primary" onclick="url_change('{% url 'guru:tugas:approve' item.id_tugas item.id_tugas_pengerjaan %}')" data-target="#modalNilai" data-toggle="modal">Approve</a>
+                            {% else %}
+                                Approved
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js"></script>
+<script>
+    function modalClick(url){
+        $('form').attr('action',url)
+    }
+    $(function(){
+        $('table').DataTable();
+    })
+    function url_change(url){
+        $('#urlChange').attr("action",url)
+    }
+</script>
+{% endblock %}
+
+{% block modal %}
+<div class="modal fade" id="modalNilai" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Approve</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form action="" method="POST" id="urlChange">
+            {% csrf_token %}
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Nilai</label>
+                    <input type="text" name="nilai" class="form-control">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

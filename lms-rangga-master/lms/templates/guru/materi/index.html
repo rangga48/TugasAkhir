@@ -1,0 +1,52 @@
+{% extends 'userapp.html' %}
+{% block headers %}
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.css">
+  
+{% endblock %}
+{% block content %}
+<h1 class="h3 mb-2 text-gray-800">Data Jadwal</h1>
+
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary"><a href="{% url 'guru:materi:tambah' id_agenda %}" class="btn btn-primary">Tambah</a></h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Konten</th>
+                        <th>Attachmemt</th>
+                        <th>Tanggal dibuat</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in data %}
+                    <tr>
+                        <td>{{ item.konten }}</td>
+                        <td>{{ item.attachment }}</td>
+                        <td>{{ item.created_date }}</td>
+                        <td>
+                            <a class="btn btn-warning" href="{% url 'guru:materi:ubah' item.id_agenda item.id_materi %}">Update</a>
+                            <a class="btn btn-danger" href="{% url 'guru:materi:hapus' item.id_agenda item.id_materi %}">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js"></script>
+<script>
+    $(function(){
+        $('table').DataTable();
+    })
+    
+</script>
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends 'userapp.html' %}
+{% block headers %}
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.css">
+  
+{% endblock %}
+{% block content %}
+<h1 class="h3 mb-2 text-gray-800">Data Siswa</h1>
+
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="p-2">
+                    <form class="user" method="POST" action="{% url 'admin:guru:ubah' id_guru %}">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <input type="text" class="form-control form-control-user" id="exampleFirstName" name="id_guru"
+                                    placeholder="{{ id_guru }}" disabled>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control form-control-user" id="exampleInputEmail" name="nama" value="{{ nama }}"
+                                placeholder="Nama">
+                        </div>
+                        <div class="form-group">
+                            <input type="date" class="form-control form-control-user" id="exampleInputEmail" name="tanggal_lahir" value="{{ tanggal_lahir }}"
+                                placeholder="Nama">
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="jenis_kelamin" value="L" id="flexRadioDefault1">
+                            <label class="form-check-label" for="flexRadioDefault1">
+                              Laki - Laki
+                            </label>
+                          </div>
+                          <div class="form-check">
+                            <input class="form-check-input" type="radio" name="jenis_kelamin" value="P" id="flexRadioDefault2" checked>
+                            <label class="form-check-label" for="flexRadioDefault2">
+                              Perempuan
+                            </label>
+                          </div>
+                        <button class="btn btn-primary btn-user btn-block" type="submit">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js"></script>
+<script>
+    $(function(){
+        $('table').DataTable();
+    })
+    
+</script>
+{% endblock %}

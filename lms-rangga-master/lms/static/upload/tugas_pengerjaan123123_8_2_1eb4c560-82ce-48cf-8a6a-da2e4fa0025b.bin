@@ -1,0 +1,83 @@
+-- phpMyAdmin SQL Dump
+-- version 5.1.3
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Waktu pembuatan: 15 Agu 2022 pada 05.04
+-- Versi server: 10.4.24-MariaDB
+-- Versi PHP: 7.4.29
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `lms`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `tugas_pengerjaan`
+--
+
+CREATE TABLE `tugas_pengerjaan` (
+  `id_tugas_pengerjaan` int(11) NOT NULL,
+  `id_tugas` int(11) NOT NULL,
+  `nis` varchar(15) NOT NULL,
+  `konten` text NOT NULL,
+  `attachment` text NOT NULL,
+  `is_approved` int(11) NOT NULL,
+  `nilai` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `tugas_pengerjaan`
+--
+
+INSERT INTO `tugas_pengerjaan` (`id_tugas_pengerjaan`, `id_tugas`, `nis`, `konten`, `attachment`, `is_approved`, `nilai`) VALUES
+(18, 5, '123123', 'aopwfmqfqw', 'tugas_pengerjaan123123_5_2_987c53cd-6f44-4008-aef7-382200700206.xlsx', 0, 0);
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indeks untuk tabel `tugas_pengerjaan`
+--
+ALTER TABLE `tugas_pengerjaan`
+  ADD PRIMARY KEY (`id_tugas_pengerjaan`),
+  ADD KEY `id_tugas` (`id_tugas`),
+  ADD KEY `nis` (`nis`);
+
+--
+-- AUTO_INCREMENT untuk tabel yang dibuang
+--
+
+--
+-- AUTO_INCREMENT untuk tabel `tugas_pengerjaan`
+--
+ALTER TABLE `tugas_pengerjaan`
+  MODIFY `id_tugas_pengerjaan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
+--
+-- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+--
+
+--
+-- Ketidakleluasaan untuk tabel `tugas_pengerjaan`
+--
+ALTER TABLE `tugas_pengerjaan`
+  ADD CONSTRAINT `tugas_pengerjaan_ibfk_1` FOREIGN KEY (`id_tugas`) REFERENCES `tugas` (`id_tugas`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `tugas_pengerjaan_ibfk_2` FOREIGN KEY (`nis`) REFERENCES `siswa` (`nis`) ON DELETE CASCADE ON UPDATE CASCADE;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

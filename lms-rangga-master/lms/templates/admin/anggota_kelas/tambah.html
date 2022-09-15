@@ -1,0 +1,41 @@
+{% extends 'userapp.html' %}
+{% block headers %}
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.css">
+  
+{% endblock %}
+{% block content %}
+<h1 class="h3 mb-2 text-gray-800">Data Siswa</h1>
+
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="p-2">
+                    <form class="user" method="POST" action="{% url 'admin:anggota_kelas:tambah' id_kelas %}">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <select class="form-control" name="nis">
+                                {% for item in data_siswa %}
+                                    <option value="{{ item.nis }}">{{ item.nama }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-block btn-user btn-primary">Tambahkan</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js"></script>
+<script>
+    $(function(){
+        $('table').DataTable();
+    })
+    
+</script>
+{% endblock %}

@@ -1,0 +1,71 @@
+{% extends 'userapp.html' %}
+{% block headers %}
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.css">
+  
+{% endblock %}
+{% block content %}
+<h1 class="h3 mb-2 text-gray-800">Data Jadwal</h1>
+
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+    <div class="card-header"><h2>{{ data.nama_mata_pelajaran }}</h2></div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table>
+                <tr>
+                    <td valign="top">Nilai Harian</td>
+                    <td>
+                        {% for item in data_tugas %}
+                            <p>{{item.title}} 
+                                {% if item.is_approved == None %}
+                                    (Belum Mengerjakan)
+                                {% endif %}
+                                {% if item.is_approved == 0 %}
+                                    (Belum Diapprove)
+                                {% endif %}
+                                {% if item.is_approved == 1 %}
+                                    ({{ item.nilai }})
+                                {% endif %}
+                            </p>
+                        {% endfor %}
+                        <p>Nilai Rata - Rata = {{ data.nilai_harian_tugas }} (Jumlah Nilai Tugas/Total Tugas)</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top">Nilai UTS</td>
+                    <td>
+                        {{ data.nilai_uts }}
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top">Nilai UAS</td>
+                    <td>
+                        {{ data.nilai_uas }}
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top">Prediksi Kelulusan</td>
+                    <td>
+                        <p>Nilai Pengetahuan: {{ nilai_pengetahuan }} ((Harian+UTS+UAS)/3) ({{ data.nilai_harian_tugas }}+{{ data.nilai_uts }}+{{ data.nilai_uas }}/3) = {{ nilai_pengetahuan }}</p>
+                        <p>Nilai Keterampilan: {{ data.nilai_keterampilan }}</p>
+                        <p>{{ nilai_pengetahuan }} + {{ data.nilai_keterampilan }} = {{penambahan}} / 2 = {{ pembagian }}</p>
+                        <p>Status Lulus: {{ status_lulus }}</p>
+                        <p><img src="data:image/png;base64,{{ graphic|safe }}"></p>
+                    </td>
+                </tr>
+            </table>
+            
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js"></script>
+<script>
+    $(function(){
+        $('table').DataTable();
+    })
+    
+</script>
+{% endblock %}
